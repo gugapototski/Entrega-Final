@@ -1,0 +1,34 @@
+server:
+  port: 8080  # O Gateway rodará na porta 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # Rota para a API de Login
+        - id: login-api
+          uri: http://localhost:8081
+          predicates:
+            - Path=/usuarios/**  # Inclui login e operações de usuário
+
+        # Rota para a API de Vendas
+        - id: venda-api
+          uri: http://localhost:8082
+          predicates:
+            - Path=/vendas/**
+
+        # Rota para a API de Produtos
+        - id: produto-api
+          uri: http://localhost:8083
+          predicates:
+            - Path=/produtos/**
+
+        # Rota para a API de Pedidos
+        - id: pedido-api
+          uri: http://localhost:8084
+          predicates:
+            - Path=/pedidos/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG  # Ativa logs detalhados para o Gateway (útil para debug)
